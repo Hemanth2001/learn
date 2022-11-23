@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
     print(question.length);
     if (question_no<question.length-1) {
       setState(() {
-        question_no = question_no + 2;
+        question_no = question_no + 1;
       });
       print(question_no);
     }
