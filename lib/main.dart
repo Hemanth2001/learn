@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn/answer.dart';
+import 'package:learn/quiz.dart';
+import 'package:learn/result.dart';
 import 'Question.dart';
 void main() {
   runApp(MyApp());
@@ -16,31 +18,48 @@ class _MyAppState extends State<MyApp> {
   var question=[
     {
       'Question':'What is your name',
-    'Answer':['Ram','sham','kam','Dam']
+    'Answer':[
+      {'text':'Ram','score':10},
+      {'text':'sham','score':5},
+      {'text':'kam','score':2},
+      {'text':'Dam','score':8}]
     },
     {
       'Question':'What is your height',
-      'Answer':['5.5','5.2','4.7']
+      'Answer':[
+        {'text':'5.5','score':10},
+        {'text':'5.2','score':5},
+       {'text':'4.7','score':2}]
     },
     {
       'Question':'What is your name',
-      'Answer':['Ram','sham','kam']
+      'Answer':[
+        {'text':'Ram','score':10},
+        {'text':'sham','score':5},
+        {'text':'kam','score':2},
+        {'text':'Dam','score':8}]
     },
     {
-      "Question":'What is your height',
-      'Answer':['5.5','5.2','4.7']
-    }
+      'Question':'What is your height',
+      'Answer':[
+        {'text':'5.5','score':10},
+        {'text':'5.2','score':5},
+        {'text':'4.7','score':2}]
+    },
   ];
 
   var question_no=0;
-  void answer() {
+  var total_score=0;
+  int score=0;
+  void _answer() {
+   // total_score+=score;
     print(question.length);
-    if (question_no<question.length-1) {
+  //  if (question_no<question.length-1) {
       setState(() {
         question_no = question_no + 1;
       });
       print(question_no);
-    }
+ //   }
   }
 
 
@@ -51,17 +70,10 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
               title: Text("Quiz")
           ),
-          body:Column(children:[
-            Question(
-                question[question_no]['Question'].toString(),
-            ),
-            ...(question[question_no]['Answer'] as List<String>).map((ans) {
-      return Answer( answer,ans);
-    }).toList()
+          body:    (question_no<question.length)?Column(children:[
+            Quiz(question: question,question_no: question_no,answer: _answer,)
 
-
-
-          ],)
+    ],): Result()
       ),
     );
 
